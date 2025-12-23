@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Teixeira | AI & Platform Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d1ff; 
+            --border: #222222;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            padding: 5vw;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: -3px; line-height: 0.9; margin-bottom: 2rem; }
+        .mono { font-family: 'Space Mono', monospace; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--accent); }
+        
+        header { margin-bottom: 5rem; }
+        .lead { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--text-secondary); max-width: 850px; margin-top: 1rem; }
+
+        .section-label { display: block; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+        .project-card {
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--card-bg);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover {
+            background: var(--text-primary);
+            color: var(--bg);
+            transform: scale(1.02);
+            z-index: 2;
+        }
+        .project-card h3 { font-size: 1.6rem; margin-bottom: 0.75rem; font-weight: 900; }
+        .project-card p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 2.5rem; }
+        .project-card .tech-stack { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; margin-bottom: 1rem; }
+
+        /* Footer */
+        .footer-links { display: flex; flex-wrap: wrap; gap: 3rem; margin-top: 4rem; }
+        .footer-links a {
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 4px;
+        }
+        .footer-links a:hover { background: var(--accent); color: var(--bg); }
+
+        @media (max-width: 600px) {
+            body { padding: 8vw 5vw; }
+            h1 { letter-spacing: -1px; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="mono">// primary_profile_initialization</span>
+        <h1>GABRIEL TEIXEIRA.</h1>
+        <p class="lead">
+            Building <strong>Autonomous Documentation Engines</strong>, <strong>Agentic Observability Layers</strong>, and <strong>Cloud-Native AI Systems</strong>. Transforming stochastic LLM outputs into reliable production systems.
+        </p>
+    </header>
+
+    <main>
+        <span class="section-label mono">selected_repositories</span>
+        <div class="projects-grid">
+            
+            <a href="https://github.com/Gabrielteixeira2004/auto_github_repo_documentation" class="project-card">
+                <div>
+                    <div class="tech-stack">Python · LLMs · Directed Acyclic Graphs (DAG)</div>
+                    <h3>GitDoc</h3>
+                    <p>An autonomous documentation engine that transforms GitHub repos into context-aware Knowledge Bases. Uses topological sorting to document projects bottom-up based on dependencies.</p>
+                </div>
+                <span class="mono">access_source →</span>
+            </a>
+
+            <a href="https://github.com/Gabrielteixeira2004/LLM_Observability" class="project-card">
+                <div>
+                    <div class="tech-stack">LangChain · Arize Phoenix · OpenTelemetry</div>
+                    <h3>LLM Observability</h3>
+                    <p>Advanced tracing for LangChain agents using Arize Phoenix. Implements deep monitoring for tool-calling patterns and stochastic decision chains.</p>
+                </div>
+                <span class="mono">access_source →</span>
+            </a>
+
+            <a href="https://github.com/Gabrielteixeira2004/aws_IaC_lambda_function" class="project-card">
+                <div>
+                    <div class="tech-stack">AWS CDK · Step Functions · Python (uv)</div>
+                    <h3>Serverless IaC</h3>
+                    <p>Production-ready AWS infrastructure as code. Orchestrates Step Functions, Lambda, and API Gateway for secure, bouncer-protected serverless workflows.</p>
+                </div>
+                <span class="mono">access_source →</span>
+            </a>
+
+            <a href="https://github.com/Gabrielteixeira2004/async_strategies" class="project-card">
+                <div>
+                    <div class="tech-stack">Python · AsyncIO · High-Concurrency</div>
+                    <h3>Async Strategies</h3>
+                    <p>Performance patterns for Python-based AI applications. Focused on efficient resource utilization during concurrent LLM inference and data processing.</p>
+                </div>
+                <span class="mono">access_source →</span>
+            </a>
+
+        </div>
+
+        <span class="section-label mono">handshake_protocols</span>
+        <div class="footer-links">
+            <a href="https://github.com/Gabrielteixeira2004" target="_blank">GITHUB_REPO</a>
+            <a href="https://www.linkedin.com/in/gtex/" target="_blank">LINKEDIN_PROF</a>
+            <a href="mailto:gabrielteixeira2004@gmail.com">SMTP_MAIL</a>
+        </div>
+    </main>
+
+</body>
+</html>
