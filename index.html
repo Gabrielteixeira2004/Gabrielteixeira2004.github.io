@@ -3,144 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Teixeira | AI & Platform Engineer</title>
+    <title>Gabriel Teixeira | AI Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0a0a;
-            --card-bg: #111111;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --accent: #00d1ff; 
-            --border: #222222;
+            --bg: #030303; /* Pitch dark background */
+            --glass: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent: #00d1ff;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             background-color: var(--bg);
-            color: var(--text-primary);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            line-height: 1.5;
-            padding: 5vw;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- THE DARK REFRACTION ENGINE --- */
+        /* These are very deep, dark glows that make the glass "frosted" without being bright */
+        .background-glows {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            filter: blur(120px);
+            opacity: 0.6;
+        }
+
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            animation: move 25s infinite alternate;
+        }
+
+        .glow-1 { background: #0a0a2e; top: -10%; left: -10%; }
+        .glow-2 { background: #1a0a2e; bottom: -10%; right: -10%; animation-delay: -5s; }
+        .glow-3 { background: #051a24; top: 40%; left: 30%; animation-duration: 30s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(200px, 100px) scale(1.3); }
+        }
+
+        /* Subtle Noise for that physical frosted texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .container {
             max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            padding: 10vh 2rem;
+            z-index: 1;
         }
 
-        h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: -3px; line-height: 0.9; margin-bottom: 2rem; }
-        .mono { font-family: 'Space Mono', monospace; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--accent); }
-        
-        header { margin-bottom: 5rem; }
-        .lead { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--text-secondary); max-width: 850px; margin-top: 1rem; }
+        header { margin-bottom: 6rem; }
+        h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            background: linear-gradient(180deg, #fff 0%, #666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-dim);
+            max-width: 600px;
+        }
 
-        .section-label { display: block; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-        
-        /* Projects Grid */
-        .projects-grid {
+        /* --- THE STEALH GLASS CARD --- */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
         }
-        .project-card {
+
+        .glass-pane {
+            position: relative;
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(50px) saturate(200%);
+            -webkit-backdrop-filter: blur(50px) saturate(200%);
+            border-radius: 32px;
+            padding: 3rem;
             text-decoration: none;
             color: inherit;
-            border: 1px solid var(--border);
-            padding: 2.5rem;
+            
+            /* High-End Thickness Highlights */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.15); /* Top shine */
+            border-left: 1px solid rgba(255, 255, 255, 0.1); /* Side shine */
+            
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.9),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05); /* Inner edge */
+            
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-pane:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 40px 80px rgba(0,0,0,1);
+        }
+
+        .mono { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+            display: block;
+            opacity: 0.8;
+        }
+
+        h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
+        p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
+
+        /* --- "MORE REPOS" STEALTH DESIGN --- */
+        .more-repos {
+            background: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            background: var(--card-bg);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-        .project-card:hover {
-            background: var(--text-primary);
-            color: var(--bg);
-            transform: scale(1.02);
-            z-index: 2;
+        .more-repos:hover {
+            border-style: solid;
+            border-color: var(--accent);
+            background: rgba(0, 209, 255, 0.03);
         }
-        .project-card h3 { font-size: 1.6rem; margin-bottom: 0.75rem; font-weight: 900; }
-        .project-card p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 2.5rem; }
-        .project-card .tech-stack { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; margin-bottom: 1rem; }
 
-        /* Footer */
-        .footer-links { display: flex; flex-wrap: wrap; gap: 3rem; margin-top: 4rem; }
-        .footer-links a {
-            color: var(--text-primary);
-            font-family: 'Space Mono', monospace;
-            font-weight: bold;
-            text-decoration: none;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 4px;
+        .circle-btn {
+            width: 70px; height: 70px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            transition: 0.5s;
         }
-        .footer-links a:hover { background: var(--accent); color: var(--bg); }
+        .more-repos:hover .circle-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: rotate(45deg);
+        }
 
-        @media (max-width: 600px) {
-            body { padding: 8vw 5vw; }
-            h1 { letter-spacing: -1px; }
-            .projects-grid { grid-template-columns: 1fr; }
+        footer {
+            margin-top: 8rem;
+            display: flex;
+            gap: 3rem;
+            padding-bottom: 5rem;
+            justify-content: center;
+            opacity: 0.5;
+        }
+        footer a { color: #fff; text-decoration: none; font-size: 0.8rem; font-family: 'JetBrains Mono'; }
+        footer a:hover { color: var(--accent); opacity: 1; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3.2rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <span class="mono">// primary_profile_initialization</span>
-        <h1>GABRIEL TEIXEIRA.</h1>
-        <p class="lead">
-            Building <strong>Autonomous Documentation Engines</strong>, <strong>Agentic Observability Layers</strong>, and <strong>Cloud-Native AI Systems</strong>. Transforming stochastic LLM outputs into reliable production systems.
-        </p>
-    </header>
+    <!-- Subtle deep glows to drive the refraction -->
+    <div class="background-glows">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
 
-    <main>
-        <span class="section-label mono">selected_repositories</span>
-        <div class="projects-grid">
-            
-            <a href="https://github.com/Gabrielteixeira2004/auto_github_repo_documentation" class="project-card">
-                <div>
-                    <div class="tech-stack">Python · LLMs · Directed Acyclic Graphs (DAG)</div>
-                    <h3>GitDoc</h3>
-                    <p>An autonomous documentation engine that transforms GitHub repos into context-aware Knowledge Bases. Uses topological sorting to document projects bottom-up based on dependencies.</p>
-                </div>
-                <span class="mono">access_source →</span>
+    <div class="container">
+        <header>
+            <span class="mono">// Gabriel Teixeira | AI Engineer</span>
+            <h1>Agentic <br>Architecture.</h1>
+            <p class="subtitle">Building the observability and concurrency layers for the next generation of AI agents.</p>
+        </header>
+
+        <main class="grid">
+            <!-- Project 1 -->
+            <a href="https://github.com/Gabrielteixeira2004/auto_github_repo_documentation" class="glass-pane">
+                <span class="mono">Autonomy</span>
+                <h3>GitDoc</h3>
+                <p>Autonomous documentation engine mapping complex repositories into context-aware knowledge bases using LLMs.</p>
             </a>
 
-            <a href="https://github.com/Gabrielteixeira2004/LLM_Observability" class="project-card">
-                <div>
-                    <div class="tech-stack">LangChain · Arize Phoenix · OpenTelemetry</div>
-                    <h3>LLM Observability</h3>
-                    <p>Advanced tracing for LangChain agents using Arize Phoenix. Implements deep monitoring for tool-calling patterns and stochastic decision chains.</p>
-                </div>
-                <span class="mono">access_source →</span>
+            <!-- Project 2 -->
+            <a href="https://github.com/Gabrielteixeira2004/LLM_Observability" class="glass-pane">
+                <span class="mono">Observability</span>
+                <h3>Agent Tracing</h3>
+                <p>Deep-layer tracing for LangChain agents using Arize Phoenix and OpenTelemetry to monitor stochastic tool-calling.</p>
             </a>
 
-            <a href="https://github.com/Gabrielteixeira2004/aws_IaC_lambda_function" class="project-card">
-                <div>
-                    <div class="tech-stack">AWS CDK · Step Functions · Python (uv)</div>
-                    <h3>Serverless IaC</h3>
-                    <p>Production-ready AWS infrastructure as code. Orchestrates Step Functions, Lambda, and API Gateway for secure, bouncer-protected serverless workflows.</p>
-                </div>
-                <span class="mono">access_source →</span>
+            <!-- Project 3 -->
+            <a href="https://github.com/Gabrielteixeira2004/aws_IaC_lambda_function" class="glass-pane">
+                <span class="mono">Cloud Native</span>
+                <h3>Serverless IaC</h3>
+                <p>Advanced AWS CDK patterns for event-driven Step Functions and secure serverless architectures.</p>
             </a>
 
-            <a href="https://github.com/Gabrielteixeira2004/async_strategies" class="project-card">
-                <div>
-                    <div class="tech-stack">Python · AsyncIO · High-Concurrency</div>
-                    <h3>Async Strategies</h3>
-                    <p>Performance patterns for Python-based AI applications. Focused on efficient resource utilization during concurrent LLM inference and data processing.</p>
-                </div>
-                <span class="mono">access_source →</span>
+            <!-- Project 4 -->
+            <a href="https://github.com/Gabrielteixeira2004/async_strategies" class="glass-pane">
+                <span class="mono">Performance</span>
+                <h3>Async Patterns</h3>
+                <p>High-throughput concurrency strategies designed specifically for high-latency AI inference and model calibration.</p>
             </a>
 
-        </div>
+            <!-- THE "MORE REPOS" CARD -->
+            <a href="https://github.com/Gabrielteixeira2004?tab=repositories" target="_blank" class="glass-pane more-repos">
+                <div class="circle-btn">↗</div>
+                <h3>Extended Lab</h3>
+                <p>Browse 40+ repositories including ML calibration cases and async experiments.</p>
+            </a>
+        </main>
 
-        <span class="section-label mono">handshake_protocols</span>
-        <div class="footer-links">
-            <a href="https://github.com/Gabrielteixeira2004" target="_blank">GITHUB_REPO</a>
-            <a href="https://www.linkedin.com/in/gtex/" target="_blank">LINKEDIN_PROF</a>
+        <footer>
+            <a href="https://github.com/Gabrielteixeira2004" target="_blank">GITHUB</a>
+            <a href="https://www.linkedin.com/in/gtex/" target="_blank">LINKEDIN</a>
             <a href="mailto:gabrielteixeira2004@gmail.com">SMTP_MAIL</a>
-        </div>
-    </main>
+        </footer>
+    </div>
 
 </body>
 </html>
